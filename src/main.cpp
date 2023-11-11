@@ -17,7 +17,8 @@ void setup() {
 }
 
 void loop() {
-  int action = checkAction();
+  //int action = checkAction(); if you want to use checkAction
+    int action = Serial.readString().toInt();
 
   switch(action){
   case 1:
@@ -32,6 +33,7 @@ void loop() {
   }
 }
 
+/* This is used if you want to type directly into the serial monitor */
 int checkAction() { 
   int action = 0;
   int waiting = 1;
