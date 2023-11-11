@@ -2,10 +2,6 @@
 
 #include "kick.h"
 
-#define KICK 1
-#define CHIP 2
-#define DRIBBLE 3
-
 int HV_SENSE = 36;
 int FAULT = 27;
 int DONE = 26;
@@ -17,9 +13,8 @@ const int GPIO_PIN_KICK = 32; //kicking pin
 const int GPIO_PIN_CHIP = 33; //chipping pin
 int gpioPin;
 
-int checkAction();
-int getPin();
-void action(int);
+int getPin(int);
+void action(int, int);
 
 void setup() {
   Serial.begin(115200);
@@ -32,56 +27,49 @@ void setup() {
 
   timer = timerBegin(0, 80, true); 
   timerAttachInterrupt(timer, &stopPulse, true); 
-
-  Serial.println("1 for kick - 2 for chip - 3 for dribble");
 }
 
 void loop() {
-  //int action = checkAction(); if you want to use checkAction
-  int data = Serial.readString().toInt();
-  gpioPin = getPin();
-  switch(data){
-  case 1:
-    gpioPin = GPIO_PIN_KICK;
-    action(gpioPin);
-    break;
-  case 2:
-    gpioPin = GPIO_PIN_CHIP;
-    break;
-  case 3:
-    /* do someting */
-    break;
+  if (Serial.available() > 0) {
+    String inputString = Serial.readStringUntil('\n');
+  
+    int commaPos = inputString.indexOf(',');
+    
+    if (commaPos != -1) {
+      String dataString = inputString.substring(0, commaPos);
+      String sliderString = inputString.substring(commaPos + 1);
+      
+      int data = dataString.toInt();
+      int charge = sliderString.toInt();
+
+      gpioPin = getPin(data);
+      action(gpioPin, charge);
+      
+    }
+    else {
+      Serial.println("Error: Invalid input format");
+    }
   }
 }
 
-/* This is used if you want to type directly into the serial monitor */
-int checkAction() { 
-  int data = 0;
-  int waiting = 1;
-  do{
-    while(Serial.available() == 0){} //waiting for user input
-    data = Serial.parseInt(); // reading user input from serial monitor
-    if(data == CHIP || data == KICK || data == DRIBBLE){
-      waiting = 0;
-    }
-    else{
-      Serial.println("Error: not a valid input. 1 for kick - 2 for chip - 3 for dribble");
-    }
-  }while(waiting);
+/* setting pin for chipping/kicking */
+int getPin(int data){
+  if(data == 1){
+    gpioPin = GPIO_PIN_KICK;
+  }
+  else if (data == 2){
+    gpioPin = GPIO_PIN_CHIP;
+  }
+  else{
+    gpioPin = -1;
+    Serial.println("Error");
+  }
 
-  return data;
+  return gpioPin;
 }
 
 /* Kicking/Chipping */
-void action(int gpioPin){
-    int pulse_width = 0;
-    Serial.println("Please enter a pulse width:");
-
-    do {
-        pulse_width = Serial.parseInt();
-        delay(50);
-    } while (pulse_width == 0);
-
+void action(int gpioPin, int pulse_width){
     Serial.print("Charging to kick at: ");
     Serial.println(pulse_width);
 

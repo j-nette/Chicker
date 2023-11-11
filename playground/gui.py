@@ -1,10 +1,8 @@
-# Importing Libraries 
-import serial 
-import time 
 import tkinter as tk
+import serial
+import time
 
-
-arduinoData = serial.Serial(port='COM6', baudrate=115200, timeout=.1) 
+arduinoData = serial.Serial(port='COM6', baudrate=9600, timeout=.1) 
 
 def write_read(x: str): 
 	arduinoData.write(bytes(x, 'utf-8')) 
