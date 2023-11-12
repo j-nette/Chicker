@@ -5,13 +5,12 @@
 #define DRIBBLE 3
 
 int checkAction(void);
-void kick(void);
-void chip(void);
+void kick(int);
+void chip(int);
 void dribble(void);
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("1 for kick - 2 for chip - 3 for dribble");
 
   pinMode(13, OUTPUT);
 }
@@ -32,10 +31,10 @@ void loop() {
 
       switch(action){
       case 1:
-        kick();
+        kick(slider);
         break;
       case 2:
-        chip();
+        chip(slider);
         break;
       case 3:
         dribble();
@@ -66,20 +65,25 @@ int checkAction() {
 
   return action;
 }
-void kick(){
+
+void kick(int slider){
   /*do something*/
   Serial.println("I kicked :)");
 
   digitalWrite(13, HIGH);
-  delay(50);
+  delay(slider);
   digitalWrite(13, LOW);
 }
-void chip(){
+void chip(int slider){
   /*do something*/
   Serial.println("I chipped :)");
 
   digitalWrite(13, HIGH);
-  delay(50);
+  delay(slider);
+  digitalWrite(13, LOW);
+  delay(slider);
+  digitalWrite(13, HIGH);
+  delay(slider);
   digitalWrite(13, LOW);
 }
 void dribble(){
