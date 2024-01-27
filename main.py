@@ -33,13 +33,13 @@ def write_read(x: str):
 	#return data 
      
 def sendKick():
-  pulse = sd.askstring(title="Pulsewidth", prompt="Please enter a pulsewidth (0-5000):")
+  pulse = sd.askstring(title="Kick Strength", prompt="Please enter a pulsewidth (0-5000):")
   if checkPulse(pulse) == True:
     write_read("1," + str(pulse))
     log.insert('1.0',"Kicked with a pulsewidth of " + pulse + "\n")
 
 def sendChip():
-  pulse = sd.askstring(title="Pulsewidth", prompt="Please enter a pulsewidth (0-5000):")
+  pulse = sd.askstring(title="Chip Strength", prompt="Please enter a pulsewidth (0-5000):")
   if checkPulse(pulse) == True:
     write_read("2," + str(pulse))
     log.insert('1.0',"Chipped with a pulsewidth of " + pulse + "\n")
@@ -84,7 +84,6 @@ normalFont = "helvetica, 12"
 tbotYellow = "#F1CF49"
 tbotBlue = "#1A345B"
 
-
 # Tkinter Window Setup #
 
 chicker_tester_window = tk.Tk()
@@ -106,12 +105,10 @@ log.place(relx=0.5, rely=0.20, anchor = "center")
 
 canvas = tk.Canvas(chicker_tester_window, width = 300, height = 50)
 canvas.place(relx=0.5, rely=0.80, anchor = "center")
-logo = Image.open("Thunderbots_team_logo.png")
+logo = Image.open("data/tbots_logo_no_gradient.png")
 shrinkLogo = logo.resize((300, 50))
 img = ImageTk.PhotoImage(shrinkLogo)
 canvas.create_image(0, 0, anchor="nw", image=img)
-
-
 
 
 chicker_tester_window.mainloop()
