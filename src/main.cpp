@@ -51,17 +51,17 @@ void loop() {
       String sliderString = inputString.substring(commaPos + 1);
       
       int action = actionString.toInt();
-      int slider = sliderString.toInt();
+      int actData = sliderString.toInt();
 
       switch(action){
       case 1:
-        kick(slider);
+        kick(actData);
         break;
       case 2:
-        chip(slider);
+        chip(actData);
         break;
-      case 3:
-        charge(slider);
+      case 3: //actData 1 = charge; actData 0 = stop charge
+        charge(actData);
         break;
       }
     }
@@ -71,18 +71,23 @@ void loop() {
   }
 }
 
-void kick(int slider){
+void kick(int pulsewidth){
   /*do something*/
 
   Serial.println("I kicked :)");
 }
-void chip(int slider){
+void chip(int pulsewidth){
   /*do something*/
 
   Serial.println("I chipped :)");
 }
-void charge(int slider){
-  /*do something*/
+void charge(int data){
+  if(data == 1){
+    //charge
+  }
+  else{
+    //stop charing
+  }
   
   Serial.println("I charged :)");
 }

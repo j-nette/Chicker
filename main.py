@@ -35,23 +35,18 @@ def write_read(x: str):
 def sendKick():
   pulse = sd.askstring(title="Pulsewidth", prompt="Please enter a pulsewidth (0-5000):")
   if checkPulse(pulse) == True:
-    #do something
-
+    write_read("1," + str(pulse))
     log.insert('1.0',"Kicked with a pulsewidth of " + pulse + "\n")
 
 def sendChip():
   pulse = sd.askstring(title="Pulsewidth", prompt="Please enter a pulsewidth (0-5000):")
   if checkPulse(pulse) == True:
-
-    #do something
-
+    write_read("2," + str(pulse))
     log.insert('1.0',"Chipped with a pulsewidth of " + pulse + "\n")
 
 def sendCharge():
   log.insert('1.0',"Please stand back. Power board charging in 5 seconds.\n")
-
-  #do something
-
+  write_read("3,1")
   log.insert('1.0',"Charged.\n")
 
 def askCharge():
@@ -68,6 +63,7 @@ def askCharge():
   else:
     mb.showwarning("Caution", "Caution: Turning \"Charge\" off will NOT DISCHARGE the power board.\n")
     chargeStatus = False
+    write_read("3,0")
     chargeBtn.configure(background=tbotYellow)
     chicker_tester_window.title("Chicker Tester")
 
