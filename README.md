@@ -1,7 +1,7 @@
 # Chicker
 Chip &amp; Kick Tester for UBC Thunderbots. 
 
-This can be run on any device that has Pythn installed.
+This can be run on any device that has Python installed.
 
 ## Setup
 1. Make sure you have Python installed on your device. You will need to run these commands in your terminal to download required libraries.
