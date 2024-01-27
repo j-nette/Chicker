@@ -73,24 +73,17 @@ void loop() {
 
 void kick(int slider){
   /*do something*/
-  digitalWrite(2, HIGH);
-  delay(200);
-  digitalWrite(2, LOW);
+
   Serial.println("I kicked :)");
 }
 void chip(int slider){
   /*do something*/
-  digitalWrite(2, HIGH);
-  delay(200);
-  digitalWrite(2, LOW);
-  delay(200);
-  digitalWrite(2, HIGH);
-  delay(200);
-  digitalWrite(2, LOW);
+
   Serial.println("I chipped :)");
 }
 void charge(int slider){
   /*do something*/
+  
   Serial.println("I charged :)");
 }
 
