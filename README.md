@@ -3,26 +3,6 @@ Chip &amp; Kick Tester for UBC Thunderbots.
 
 This can be run on any device that has Pythn installed.
 
-## Screenshots
-
-![home GUI](data/homeGUI.png)
-
-This is the home screen, featuring 3 buttons and a log. The log keeps track of which commands have been sent, and is scrollable. 
-
-![charge confirmation](data/chargeConf.png)
-
-When the charge button is pressed, a warning message appears before the charge command can be sent to the board. Pressing "No" will cancel the charge command.
-
-![charge off confirmation](data/chargeOff.png)
-
-When the "Charge" is being turned off, another warning appears. 
-
-![chick](data/chick.png)
-
-When the "Kick" or "Chip" button are pressed, a window appears, asking the user to input the desired pulsewidth. The command will not be sent if the inputted value is not within the boundaries, and the user will need to press the "Kick" or "Chip" button again to re-enter a value.
-
-This image also shows what the GUI looks like when the charge is on. Note that the window title says "CHARGE IS ON" and the charge button is red. 
-
 ## Setup
 1. Make sure you have Python installed on your device. You will need to run these commands in your terminal to download required libraries.
   ```shell
@@ -46,7 +26,28 @@ This image also shows what the GUI looks like when the charge is on. Note that t
   4. Run "main.py". Another window should appear with the Chicker GUI :)
     - Note: Port autodetection may not always work depending on the board (some boards have really strange names). If that's the case, please hardcode the com port in "main.py"
 
+
+## Screenshots
+
+![home GUI](data/homeGUI.png)
+
+This is the home screen, featuring 3 buttons and a log. The log keeps track of which commands have been sent, and is scrollable. 
+
+![charge confirmation](data/chargeConf.png)
+
+When the charge button is pressed, a warning message appears before the charge command can be sent to the board. Pressing "No" will cancel the charge command.
+
+![charge off confirmation](data/chargeOff.png)
+
+When the "Charge" is being turned off, another warning appears. 
+
+![chick](data/chick.png)
+
+When the "Kick" or "Chip" button are pressed, a window appears, asking the user to input the desired pulsewidth. The command will not be sent if the inputted value is not within the boundaries, and the user will need to press the "Kick" or "Chip" button again to re-enter a value.
+
+This image also shows what the GUI looks like when the charge is on. Note that the window title says "CHARGE IS ON" and the charge button is red. 
+
 ## Other random things
 - The playground folder contains all the WIP files and individual functions. 
-- The GUI may look a bit different, depending on where you run it. Either way, it'll still looks like it came from the 2000s.
+- The GUI may look a bit different, depending on where you run it. Either way, it'll still look like it came from the 2000s.
 
