@@ -19,7 +19,7 @@ arduino_ports = [
 if not arduino_ports:
     raise IOError("No ESP found found")
 if len(arduino_ports) > 1:
-    warnings.warn('Multiple Arduinos found - using the first')
+    warnings.warn('Multiple ESPs found - using the first')
 
 ser = serial.Serial(arduino_ports[0])
 
@@ -66,13 +66,14 @@ def askCharge():
     else:
       log.insert('1.0',"Charging Cancelled\n")
   else:
-    mb.showwarning("Power board may still be charged", "Caution: Turning \"Charge\" off will NOT DISCHARGE the power board.\n")
+    mb.showwarning("Caution", "Caution: Turning \"Charge\" off will NOT DISCHARGE the power board.\n")
+    chargeStatus = False
     chargeBtn.configure(background=tbotYellow)
     chicker_tester_window.title("Chicker Tester")
 
 def checkPulse(pulse):
   if int(pulse) > 5000 or int(pulse) < 0:
-    mb.showwarning("Pulsewidth outside of range", "Error: The value you entered is outside of the desired range. Please enter a value between 0 and 5000.")
+    mb.showwarning("Error", "Error: The value you entered is outside of the desired range. Please enter a value between 0 and 5000.")
     return False
   return True
 
@@ -104,7 +105,7 @@ chargeBtn = tk.Button(chicker_tester_window, text = "Charge", font= btnFont, bac
 
 kickBtn.place(relx=0.30, rely=0.50, anchor="center")
 chipBtn.place(relx=0.5, rely=0.50, anchor="center")
-chargeBtn.place(relx=0.70, rely=0.50, anchor="center")
+chargeBtn.place(relx=0.720, rely=0.50, anchor="center")
 log.place(relx=0.5, rely=0.20, anchor = "center")
 
 canvas = tk.Canvas(chicker_tester_window, width = 300, height = 50)
