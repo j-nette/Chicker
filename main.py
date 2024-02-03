@@ -33,21 +33,36 @@ def write_read(x: str):
 	#return data 
      
 def sendKick():
-  pulse = sd.askstring(title="Kick Strength", prompt="Please enter a pulsewidth (0-5000):")
-  if checkPulse(pulse) == True:
-    write_read("1," + str(pulse))
-    log.insert('1.0',"Kicked with a pulsewidth of " + pulse + "\n")
+  global chargeStatus
+
+  if(chargeStatus == 1):
+    pulse = sd.askstring(title="Kick Strength", prompt="Please enter a pulsewidth (0-5000):")
+    if checkPulse(pulse) == True:
+      write_read("1," + str(pulse))
+      log.insert('1.0',"Kicking with a pulsewidth of " + pulse + " in 3 seconds. Please stand back.\n")
+  else:
+    # warning before kick
+    askCharge() 
+    if (chargeStatus == 1):
+       sendKick()
 
 def sendChip():
-  pulse = sd.askstring(title="Chip Strength", prompt="Please enter a pulsewidth (0-5000):")
-  if checkPulse(pulse) == True:
-    write_read("2," + str(pulse))
-    log.insert('1.0',"Chipped with a pulsewidth of " + pulse + "\n")
+  global chargeStatus
+
+  if(chargeStatus == 1):
+    pulse = sd.askstring(title="Chip Strength", prompt="Please enter a pulsewidth (0-5000):")
+    if checkPulse(pulse) == True:
+      write_read("2," + str(pulse))
+      log.insert('1.0',"Chipping with a pulsewidth of " + pulse + " in 3 seconds. Please stand back. \n")
+  else:
+    # warning before chip
+    askCharge() 
+    if (chargeStatus == 1):
+       sendChip()
 
 def sendCharge():
-  log.insert('1.0',"Please stand back. Power board charging in 5 seconds.\n")
+  log.insert('1.0',"Power board charging.\n")
   write_read("3,1")
-  log.insert('1.0',"Charged.\n")
 
 def askCharge():
   global chargeStatus
@@ -59,7 +74,7 @@ def askCharge():
       chicker_tester_window.title("Chicker Tester - CHARGE IS ON")
       sendCharge()
     else:
-      log.insert('1.0',"Charging Cancelled\n")
+      log.insert('1.0',"Action Cancelled\n")
   else:
     mb.showwarning("Caution", "Caution: Turning \"Charge\" off will NOT DISCHARGE the power board.\n")
     chargeStatus = False

@@ -1,23 +1,17 @@
 #include <Arduino.h>
 
-#define KICK 1
-#define CHIP 2
-#define CHARGE 3
-
 const int HV_SENSE = 36;
 const int FAULT = 27;
 const int DONE = 26;
 const int CHRG = 25;
 
+const int GPIO_PIN_KICK = 32; //kicking pin
+const int GPIO_PIN_CHIP = 33; //chipping pin
+
 void oneShotPulse(int gpioPin, int duration);
 void IRAM_ATTR stopPulse();
 bool ChargeCap(int CHRG, int FAULT, int DONE, int HV_SENSE);
 
-const int GPIO_PIN_KICK = 32; //kicking pin
-const int GPIO_PIN_CHIP = 33; //chipping pin
-int gpioPin;
-
-int checkAction(void);
 void kick(int);
 void chip(int);
 void charge(int);
@@ -71,16 +65,26 @@ void loop() {
   }
 }
 
-void kick(int pulsewidth){
-  /*do something*/
+void kick(int pulse_width){
+   digitalWrite(CHRG, HIGH);
+   Serial.println("Going to kick in 3 seconds, standback");
+   delay(5000);
+   oneShotPulse(GPIO_PIN_KICK, pulse_width);
+   Serial.println("Kicked");
 
-  Serial.println("I kicked :)");
+  //Serial.println("I kicked :)");
 }
-void chip(int pulsewidth){
-  /*do something*/
 
-  Serial.println("I chipped :)");
+void chip(int pulse_width){
+   digitalWrite(CHRG, HIGH);
+   Serial.println("Going to kick in 3 seconds, standback");
+   delay(5000);
+   oneShotPulse(GPIO_PIN_CHIP, pulse_width);
+   Serial.println("Kicked");
+
+  //Serial.println("I chipped :)");
 }
+
 void charge(int data){
   if(data == 1){
     //charge
@@ -89,7 +93,7 @@ void charge(int data){
     //stop charing
   }
   
-  Serial.println("I charged :)");
+ // Serial.println("I charged :)");
 }
 
 
