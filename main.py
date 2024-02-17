@@ -3,6 +3,7 @@ import time
 import warnings
 import serial
 import serial.tools.list_ports
+import os
 
 import tkinter as tk
 from tkinter import messagebox as mb
@@ -135,7 +136,10 @@ log.place(relx=0.5, rely=0.20, anchor = "center")
 
 canvas = tk.Canvas(chicker_tester_window, width = 300, height = 50)
 canvas.place(relx=0.5, rely=0.80, anchor = "center")
-logo = Image.open(".\data\tbots_logo_no_gradient.png")
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
+image_path = os.path.join(current_directory, "data", "tbots_logo_no_gradient.png")
+logo = Image.open(image_path)
 shrinkLogo = logo.resize((300, 50))
 img = ImageTk.PhotoImage(shrinkLogo)
 canvas.create_image(0, 0, anchor="nw", image=img)
