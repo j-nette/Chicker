@@ -31,7 +31,7 @@ arduinoData = serial.Serial(port=ser, baudrate=115200, timeout=.1)
 def write_read(x: str): 
 	arduinoData.write(bytes(x, 'utf-8')) 
 	time.sleep(0.05) 
-	#data = arduinoData.readline() 
+	#data = arduinoData.readline() # Used for reading data from ESP to laptop
 	#return data 
 
 # Sends kick command to rig #    
@@ -39,7 +39,8 @@ def sendKick():
   global chargeStatus
 
   if(chargeStatus == 1):
-    pulse = sd.askstring(title="Kick Strength", prompt="Please enter a pulsewidth (0-" + str(MAX_PULSEWIDTH) + "):")
+    pulse = sd.askstring(title="Kick Strength", prompt="Please enter a pulsewidth\
+                          (0-" + str(MAX_PULSEWIDTH) + "):")
     if checkPulse(pulse) == True:
       write_read("1," + str(pulse))
       log.insert('1.0',"Kicking with a pulsewidth of " + pulse + " in 3 seconds. Please stand back.\n")
@@ -54,7 +55,8 @@ def sendChip():
   global chargeStatus
 
   if(chargeStatus == 1):
-    pulse = sd.askstring(title="Chip Strength", prompt="Please enter a pulsewidth (0-" + str(MAX_PULSEWIDTH) + "):")
+    pulse = sd.askstring(title="Chip Strength", prompt="Please enter a pulsewidth \
+                         (0-" + str(MAX_PULSEWIDTH) + "):")
     if checkPulse(pulse) == True:
       write_read("2," + str(pulse))
       log.insert('1.0',"Chipping with a pulsewidth of " + pulse + " in 3 seconds. Please stand back. \n")
@@ -73,7 +75,9 @@ def sendCharge():
 def askCharge():
   global chargeStatus
   if chargeStatus == False:
-    res = mb.askyesno("Warning","Warning: You are about to charge the power board.\nOnce charged, it will remain charged and setting \"Charge\" to low will NOT DISCHARGE it.\nDo you understand?")
+    res = mb.askyesno("Warning","Warning: You are about to charge the power board.\n\
+                      Once charged, it will remain charged and setting \"Charge\" to\
+                       low will NOT DISCHARGE it.\nDo you understand?")
     if res == True:
       chargeStatus = True
       chargeBtn.configure(background='#fa6b6b')
@@ -91,7 +95,8 @@ def askCharge():
 # Checking Validity of pulsewidth value #
 def checkPulse(pulse):
   if int(pulse) > MAX_PULSEWIDTH or int(pulse) < 0:
-    mb.showwarning("Error", "Error: The value you entered is outside of the desired range. Please enter a value between 0 and " + str(MAX_PULSEWIDTH))
+    mb.showwarning("Error", "Error: The value you entered is outside of the desired range.\
+                    Please enter a value between 0 and " + str(MAX_PULSEWIDTH))
     return False
   return True
 
