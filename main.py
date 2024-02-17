@@ -9,15 +9,17 @@ from tkinter import messagebox as mb
 from tkinter import simpledialog as sd
 from PIL import Image, ImageTk
 
-# Autodetect Ports #
+# Constants #
+MAX_PULSEWIDTH = 5000 
 
+# Autodetect Ports #
 arduino_ports = [
 	p.device
     for p in serial.tools.list_ports.comports()
     if 'ESP' in p.description  
 	]
 if not arduino_ports:
-    raise IOError("No ESP found found")
+    raise IOError("No ESP found")
 if len(arduino_ports) > 1:
     warnings.warn('Multiple ESPs found - using the first')
 
@@ -31,12 +33,13 @@ def write_read(x: str):
 	time.sleep(0.05) 
 	#data = arduinoData.readline() 
 	#return data 
-     
+
+# Sends kick command to rig #    
 def sendKick():
   global chargeStatus
 
   if(chargeStatus == 1):
-    pulse = sd.askstring(title="Kick Strength", prompt="Please enter a pulsewidth (0-5000):")
+    pulse = sd.askstring(title="Kick Strength", prompt="Please enter a pulsewidth (0-" + str(MAX_PULSEWIDTH) + "):")
     if checkPulse(pulse) == True:
       write_read("1," + str(pulse))
       log.insert('1.0',"Kicking with a pulsewidth of " + pulse + " in 3 seconds. Please stand back.\n")
@@ -46,11 +49,12 @@ def sendKick():
     if (chargeStatus == 1):
        sendKick()
 
+# Sends chip command to rig #
 def sendChip():
   global chargeStatus
 
   if(chargeStatus == 1):
-    pulse = sd.askstring(title="Chip Strength", prompt="Please enter a pulsewidth (0-5000):")
+    pulse = sd.askstring(title="Chip Strength", prompt="Please enter a pulsewidth (0-" + str(MAX_PULSEWIDTH) + "):")
     if checkPulse(pulse) == True:
       write_read("2," + str(pulse))
       log.insert('1.0',"Chipping with a pulsewidth of " + pulse + " in 3 seconds. Please stand back. \n")
@@ -60,10 +64,12 @@ def sendChip():
     if (chargeStatus == 1):
        sendChip()
 
+# Sends charge command to rig #
 def sendCharge():
   log.insert('1.0',"Power board charging.\n")
   write_read("3,1")
 
+# Warning for charging the power board #
 def askCharge():
   global chargeStatus
   if chargeStatus == False:
@@ -82,9 +88,10 @@ def askCharge():
     chargeBtn.configure(background=tbotYellow)
     chicker_tester_window.title("Chicker Tester")
 
+# Checking Validity of pulsewidth value #
 def checkPulse(pulse):
-  if int(pulse) > 5000 or int(pulse) < 0:
-    mb.showwarning("Error", "Error: The value you entered is outside of the desired range. Please enter a value between 0 and 5000.")
+  if int(pulse) > MAX_PULSEWIDTH or int(pulse) < 0:
+    mb.showwarning("Error", "Error: The value you entered is outside of the desired range. Please enter a value between 0 and " + str(MAX_PULSEWIDTH))
     return False
   return True
 
