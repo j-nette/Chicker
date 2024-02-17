@@ -77,9 +77,7 @@ def sendCharge():
 def askCharge():
   global chargeStatus
   if chargeStatus == False:
-    res = mb.askyesno("Warning","Warning: You are about to charge the power board.\n \
-                      Once charged, it will remain charged and setting \"Charge\" to\
-                       low will NOT DISCHARGE it.\nProceed?")
+    res = mb.askyesno("Warning","Warning: You are about to charge the power board.\nOnce charged, it will remain charged and setting \"Charge\" to low will NOT DISCHARGE it.\nProceed?")
     if res == True:
       chargeStatus = True
       chargeBtn.configure(background='#fa6b6b')
@@ -97,8 +95,7 @@ def askCharge():
 # Checking Validity of pulsewidth value #
 def checkPulse(pulse):
   if int(pulse) > MAX_PULSEWIDTH or int(pulse) < 0:
-    mb.showwarning("Error", "Error: The value you entered is outside of the desired range.\
-                    Please enter a value between 0 and " + str(MAX_PULSEWIDTH))
+    mb.showwarning("Error", "Error: The value you entered is outside of the desired range. Please enter a value between 0 and " + str(MAX_PULSEWIDTH))
     return False
   return True
 

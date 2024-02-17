@@ -68,7 +68,7 @@ void loop() {
 void kick(int pulse_width){
    digitalWrite(CHRG, HIGH);
    //Serial.println("Going to kick in 3 seconds, standback");
-   delay(5000);
+   delay(3000);
    oneShotPulse(GPIO_PIN_KICK, pulse_width);
    Serial.println("Kicked");
 
@@ -78,7 +78,7 @@ void kick(int pulse_width){
 void chip(int pulse_width){
    digitalWrite(CHRG, HIGH);
    //Serial.println("Going to kick in 3 seconds, standback");
-   delay(5000);
+   delay(3000);
    oneShotPulse(GPIO_PIN_CHIP, pulse_width);
    Serial.println("Kicked");
 
