@@ -90,7 +90,7 @@ void charge(int data){
     //charge
   }
   else{
-    //stop charing
+    //stop charging
   }
   
  // Serial.println("I charged :)");
