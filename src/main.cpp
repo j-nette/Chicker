@@ -87,10 +87,10 @@ void chip(int pulse_width){
 
 void charge(int data){
   if(data == 1){
-    //charge
+    digitalWrite(CHRG, HIGH);
   }
   else{
-    //stop charging
+    digitalWrite(CHRG, LOW);
   }
   
  // Serial.println("I charged :)");
